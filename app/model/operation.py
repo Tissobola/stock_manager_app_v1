@@ -1,5 +1,3 @@
-import datetime
-
 class Operation:
     def __init__(self, product_id, units, price, operation_id = None, operation_date = None, is_sale = None):
         self.operation_id = operation_id
