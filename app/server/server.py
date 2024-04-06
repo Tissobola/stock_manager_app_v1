@@ -1,4 +1,6 @@
 from flask import Flask, request, abort
+# import app.handler.operation as op_hand
+import app.handler.product as prod_handler
 
 APP = Flask(__name__)
 
@@ -8,26 +10,25 @@ def index():
 
 @APP.route('/products', methods=['GET'])
 def getAllProducts():
-    print("test")
-    return "200", 200
+    return prod_handler.getAllProducts(), 200 
 
 @APP.route('/products', methods=['POST'])
 def createProduct():
     data = request.get_json()
-    return
+    return prod_handler.createProduct(data), 200
 
 @APP.route('/products', methods=['PUT'])
 def updateProduct():
     data = request.get_json()
-    return
+    return prod_handler.updateProduct(data), 200
 
 @APP.route('/products/<int:id>', methods=['GET'])
 def getProduct(id):
-    return
+    return prod_handler.getProduct(id), 200
 
 @APP.route('/products/<int:id>', methods=['DELETE'])
 def deleteProduct(id):
-    return
+    return prod_handler.deleteProduct(id), 200
 
 @APP.route('/operations', methods=['GET'])
 def getAllOperations():

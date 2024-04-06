@@ -1,26 +1,25 @@
 import app.service.operation as sr
 import app.model.operation as op
 from datetime import datetime
-import json
-import sqlite3
+from flask import abort
 
 class OperationHandler:
-    def getOperation(id: int) -> tuple[op.Operation, Exception]:
+    def getOperation(id: int) -> op.Operation:
         
 
-    def getAllOperations() -> tuple[list[op.Operation], Exception]:
+    def getAllOperations() -> list[op.Operation]:
         
 
-    def createSale(operation: op.Operation) -> tuple[bool, Exception]:
+    def createSale(operation: dict) -> bool:
         
 
-    def createPurchase(operation: op.Operation) -> tuple[bool, Exception]:
+    def createPurchase(operation: dict) -> bool:
         
 
-    def deleteOperation(id: int) -> tuple[bool, Exception]:
+    def deleteOperation(id: int) -> bool:
         
 
-    def updateOperation(operation: op.Operation) -> tuple[bool, Exception]:
+    def updateOperation(operation: dict) -> bool:
         
 
 _inst = OperationHandler

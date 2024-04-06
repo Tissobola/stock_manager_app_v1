@@ -5,17 +5,17 @@ from app.validator.error_reader import read
 class Validator:
     def getProduct(id: int) -> tuple[bool, Exception]:
         data = {"id" : id}
-        rules = {"id" : "required"}
+        rules = {"id" : "required|integer"}
         result, _, error = validate(data, rules, return_info=True)
         return (result, read(error))
 
     def createProduct(product: prod.Product) -> tuple[bool, Exception]:
-        data = product.to_dict()
+        data = product
         rules = {"product_id"   : "",
-                 "name"         : "required",
+                 "name"         : "required|alpha|min:1",
                  "price"        : "required|min:0",
-                 "stock"        : "",
-                 "unit"         : "required"
+                 "stock"        : "integer",
+                 "unit"         : "required|alpha|min:1"
                 }
         result, _, error = validate(data, rules, return_info=True)
         return (result, read(error))
@@ -27,8 +27,8 @@ class Validator:
         return (result, read(error))
 
     def updateProduct(product: prod.Product) -> tuple[bool, Exception]:
-        data = product.to_dict()
-        rules = {"product_id"   : "required",
+        data = product
+        rules = {"product_id"   : "required|integer",
                  "name"         : "required",
                  "price"        : "required|min:0",
                  "stock"        : "",

@@ -5,16 +5,16 @@ from app.validator.error_reader import read
 class Validator:
     def getOperation(id: int) -> tuple[bool, Exception]:
         data = {"id" : id}
-        rules = {"id" : "required"}
+        rules = {"id" : "required|integer"}
         result, _, error = validate(data, rules, return_info=True)
         return (result, read(error))
 
     def createOperation(operation: op.Operation) -> tuple[bool, Exception]:
-        data = operation.to_dict()
+        data = operation
         rules = {"operation_id"     : "",
-                 "product_id"       : "required",
+                 "product_id"       : "required|integer",
                  "operation_date"   : "",
-                 "units"            : "required|min:1",
+                 "units"            : "required|min:1|integer",
                  "price"            : "required|min:0",
                  "is_sale"          : ""
                 }
@@ -23,14 +23,14 @@ class Validator:
 
     def deleteOperation(id: int) -> tuple[bool, Exception]:
         data = {"id" : id}
-        rules = {"id" : "required"}
+        rules = {"id" : "required|integer"}
         result, _, error = validate(data, rules, return_info=True)
         return (result, read(error))
 
     def updateOperation(operation: op.Operation) -> tuple[bool, Exception]:
-        data = operation.to_dict()
-        rules = {"operation_id"     : "required",
-                 "product_id"       : "required",
+        data = operation
+        rules = {"operation_id"     : "required|integer",
+                 "product_id"       : "required|integer",
                  "operation_date"   : "",
                  "units"            : "required|min:1",
                  "price"            : "required|min:0",

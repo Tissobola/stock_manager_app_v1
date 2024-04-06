@@ -7,14 +7,14 @@ class Product:
         self.unit = unit
 
     def __init__(self, product_dict: dict):
-        self.product_id = int(product_dict.product_id)
-        self.name = str(product_dict.name)
-        self.price = float(product_dict.price)
-        self.stock = int(product_dict.stock)
-        self.unit = str(product_dict.unit)
+        self.product_id = product_dict["product_id"]
+        self.name = product_dict["name"]
+        self.price = float(product_dict["price"])
+        self.stock = product_dict["stock"]
+        self.unit = product_dict["unit"]
         
     def to_tuple(self):
-        return (self.id, self.name, self.price, self.stock, self.unit)
+        return (self.product_id, self.name, self.price, self.stock, self.unit)
     
     def to_list(self):
         result = []

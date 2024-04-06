@@ -1,1 +1,1 @@
-sqlite3 < db_instace.sql
+sqlite3 < .\db_instance.sql

@@ -1,6 +1,5 @@
 import app.model.operation as op
 import app.repository.db as db
-import sqlite3
 
 class OperationRepository:
     def getOperation(id: int) -> tuple[op.Operation, Exception]:
@@ -66,7 +65,9 @@ class OperationRepository:
         try:
             db.execute(query, operation.to_list()).commit()
         except Exception as error:
+            db.rollback()
             return (False, error)
+        db.commit()
         return (True, None)
 
     def deleteOperation(id: int) -> tuple[bool, Exception]:
@@ -74,7 +75,9 @@ class OperationRepository:
             db.execute('''DELETE FROM operation
                 WHERE operation_id = ?''', [id])
         except Exception as error:
+            db.rollback()
             return (False, error)
+        db.commit()
         return (True, None)
 
     def updateOperation(operation: op.Operation) -> tuple[bool, Exception]:
@@ -85,7 +88,9 @@ class OperationRepository:
         try:
             db.execute(query, operation.to_list()[1:].append(operation.operation_id)).commit()
         except Exception as error:
+            db.rollback()
             return (False, error)
+        db.commit()
         return (True, None)
 
 _inst = OperationRepository

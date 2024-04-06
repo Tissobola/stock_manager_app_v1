@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS product (
 
 -- Create 'operations' table
 CREATE TABLE IF NOT EXISTS operation (
-    operations_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    operation_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     product_id INT(255) NOT NULL,
     operation_date DATE NOT NULL,
     units INT(255) NOT NULL,
