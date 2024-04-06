@@ -55,12 +55,16 @@ class ProductRepository:
         return (True, None)
 
     def updateProduct(product: prod.Product) -> tuple[bool, Exception]:
-        query = '''UPDATE product
-            SET (name, price, stock, unit)
-            VALUES (?, ?, ?, ?)
+        query = '''UPDATE product SET
+            name = ?,
+            price = ?,
+            stock = ?,
+            unit = ?
             WHERE product_id = ?'''
         try:
-            db.execute(query, product.to_list()[1:].append(product.product_id))
+            stats = product.to_list()[1:]
+            stats.append(product.product_id)
+            db.execute(query, stats)
         except Exception as error:
             db.rollback()
             return (False, error)

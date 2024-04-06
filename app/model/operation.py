@@ -16,8 +16,7 @@ class Operation:
         self.is_sale = operation_dict["is_sale"]
         
     def to_tuple(self):
-        return (self.operation_id, self.product_id, self.operation_date,
-                self.units, self.price, self.is_sale)
+        return (self.operation_id, self.product_id, self.units, self.price, self.is_sale, self.operation_date)
     
     def to_list(self):
         result = []

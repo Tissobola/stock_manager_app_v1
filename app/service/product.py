@@ -2,7 +2,7 @@ import app.model.product as prod
 import app.repository.product as rp
 
 class ProductService:
-    def getProduct(id: int) -> tuple[prod.Product, Exception]:
+    def getProduct(id: int) -> tuple[dict, Exception]:
         result, error = rp.getProduct(id)
         if error is not None:
             return None, error
@@ -23,19 +23,19 @@ class ProductService:
     def createProduct(product: prod.Product) -> tuple[str, Exception]:
         result, error = rp.createProduct(product)
         if error is not None:
-            return False, error
+            return str(False), error
         return str(result), None
 
     def deleteProduct(id: int) -> tuple[str, Exception]:
         result, error = rp.deleteProduct(id)
         if error is not None:
-            return False, error
+            return str(False), error
         return str(result), None
 
     def updateProduct(product: prod.Product) -> tuple[str, Exception]:
         result, error = rp.updateProduct(product)
         if error is not None:
-            return False, error
+            return str(False), error
         return str(result), None
 
 _inst = ProductService

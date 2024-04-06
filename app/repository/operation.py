@@ -11,6 +11,8 @@ class OperationRepository:
             ''', [id]).fetchone()   # dict
         except Exception as error:
             return (None, error)
+        if stats is None:
+            return (None, Exception('Could not find product with id: {}'.format(id)))
         operation = op.Operation(stats)
         return (operation, None)
 
@@ -23,6 +25,8 @@ class OperationRepository:
             ''').fetchall()
         except Exception as error:
             return (None, error)
+        if len(operations) == 0:
+            return (None, Exception('There are no operations registered'))
         result = []
         for operation in operations:
             result.append(op.Operation(operation))
@@ -30,40 +34,44 @@ class OperationRepository:
 
     def getAllSales() -> tuple[list[op.Operation], Exception]:
         try:
-            operations = db.execute('''
+            sales = db.execute('''
                 SELECT *
                 FROM operation
                 WHERE is_sale = ?
                 ORDER BY operation_date
-            ''', True).fetchall()
+            ''', [True]).fetchall()
         except Exception as error:
             return (None, error)
+        if len(sales) == 0:
+            return (None, Exception('There are no sales registered'))
         result = []
-        for operation in operations:
-            result.append(op.Operation(operation))
+        for sale in sales:
+            result.append(op.Operation(sale))
         return (result, None)
     
     def getAllPurchases() -> tuple[list[op.Operation], Exception]:
         try:
-            operations = db.execute('''
+            purchases = db.execute('''
                 SELECT *
                 FROM operation
                 WHERE is_sale = ?
                 ORDER BY operation_date
-            ''', False).fetchall()
+            ''', [False]).fetchall()
         except Exception as error:
             return (None, error)
+        if len(purchases) == 0:
+            return (None, Exception('There are no purchases registered'))
         result = []
-        for operation in operations:
-            result.append(op.Operation(operation))
+        for purchase in purchases:
+            result.append(op.Operation(purchase))
         return (result, None)
 
     def createOperation(operation: op.Operation) -> tuple[bool, Exception]:
         query = '''INSERT INTO operation
-             (operation_id, name, price, stock, unit)
+             (product_id, units, price, is_sale, operation_date)
              VALUES (?, ?, ?, ?, ?)'''
         try:
-            db.execute(query, operation.to_list()).commit()
+            db.execute(query, operation.to_list()[1:])
         except Exception as error:
             db.rollback()
             return (False, error)
@@ -81,12 +89,17 @@ class OperationRepository:
         return (True, None)
 
     def updateOperation(operation: op.Operation) -> tuple[bool, Exception]:
-        query = '''UPDATE operation
-            SET (product_id, operation_date, unit)
-            VALUES (?, ?, ?, ?)
+        query = '''UPDATE operation SET
+            product_id = ?,
+            units = ?,
+            price = ?,
+            is_sale = ?
             WHERE operation_id = ?'''
         try:
-            db.execute(query, operation.to_list()[1:].append(operation.operation_id)).commit()
+            stats = operation.to_list()[1:5]
+            stats.append(operation.operation_id)
+            print(stats)
+            db.execute(query, stats)
         except Exception as error:
             db.rollback()
             return (False, error)
@@ -96,6 +109,8 @@ class OperationRepository:
 _inst = OperationRepository
 getOperation = _inst.getOperation
 getAllOperations = _inst.getAllOperations
+getAllSales = _inst.getAllSales
+getAllPurchases = _inst.getAllPurchases
 createOperation = _inst.createOperation
 deleteOperation = _inst.deleteOperation
 updateOperation = _inst.updateOperation

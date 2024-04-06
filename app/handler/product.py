@@ -16,7 +16,7 @@ class ProductHandler:
             abort(500, str(error))
         return result
 
-    def createProduct(product: dict) -> bool:
+    def createProduct(product: dict) -> str:
         validate, error = val.createProduct(product)
         if not validate:
             abort(404, str(error))
@@ -31,7 +31,7 @@ class ProductHandler:
         return response
         
 
-    def deleteProduct(id: int) -> bool:
+    def deleteProduct(id: int) -> str:
         validate, error = val.deleteProduct(id)
         if not validate:
             abort(404, str(error))
@@ -40,7 +40,7 @@ class ProductHandler:
             abort(500, str(error))
         return result
 
-    def updateProduct(product: dict) -> bool:
+    def updateProduct(product: dict) -> str:
         validate, error = val.updateProduct(product)
         if not validate:
             abort(404, str(error))

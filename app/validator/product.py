@@ -14,7 +14,7 @@ class Validator:
         rules = {"product_id"   : "",
                  "name"         : "required|alpha|min:1",
                  "price"        : "required|min:0",
-                 "stock"        : "integer",
+                 "stock"        : "required|min:0|integer",
                  "unit"         : "required|alpha|min:1"
                 }
         result, _, error = validate(data, rules, return_info=True)
@@ -22,16 +22,16 @@ class Validator:
 
     def deleteProduct(id: int) -> tuple[bool, Exception]:
         data = {"id" : id}
-        rules = {"id" : "required"}
+        rules = {"id" : "required|integer"}
         result, _, error = validate(data, rules, return_info=True)
         return (result, read(error))
 
     def updateProduct(product: prod.Product) -> tuple[bool, Exception]:
         data = product
         rules = {"product_id"   : "required|integer",
-                 "name"         : "required",
+                 "name"         : "required|alpha|min:1",
                  "price"        : "required|min:0",
-                 "stock"        : "",
+                 "stock"        : "required|min:0|integer",
                  "unit"         : "required"
                 }
         result, _, error = validate(data, rules, return_info=True)

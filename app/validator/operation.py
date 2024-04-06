@@ -15,7 +15,7 @@ class Validator:
                  "product_id"       : "required|integer",
                  "operation_date"   : "",
                  "units"            : "required|min:1|integer",
-                 "price"            : "required|min:0",
+                 "price"            : "",
                  "is_sale"          : ""
                 }
         result, _, error = validate(data, rules, return_info=True)
@@ -32,9 +32,9 @@ class Validator:
         rules = {"operation_id"     : "required|integer",
                  "product_id"       : "required|integer",
                  "operation_date"   : "",
-                 "units"            : "required|min:1",
+                 "units"            : "required|min:1|integer",
                  "price"            : "required|min:0",
-                 "is_sale"          : ""
+                 "is_sale"          : "required|min:0|max:1"
                 }
         result, _, error = validate(data, rules, return_info=True)
         return (result, read(error))
