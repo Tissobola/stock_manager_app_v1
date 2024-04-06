@@ -21,6 +21,7 @@ class ProductHandler:
         if not validate:
             abort(404, str(error))
         try:
+            product["product_id"] = None
             product = prod.Product(product)
         except:
             abort(404, "Invalid Request")
