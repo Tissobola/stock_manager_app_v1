@@ -154,7 +154,6 @@ class OperationService:
         
         result, error = op_rp.updateOperation(operation)
         if error is not None:
-            print(error)
             return str(False), error
         return str(result), None
 

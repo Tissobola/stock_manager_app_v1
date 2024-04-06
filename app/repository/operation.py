@@ -98,7 +98,6 @@ class OperationRepository:
         try:
             stats = operation.to_list()[1:5]
             stats.append(operation.operation_id)
-            print(stats)
             db.execute(query, stats)
         except Exception as error:
             db.rollback()
