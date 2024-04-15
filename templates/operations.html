@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Operations</h1>
+<table>
+    <tr>
+        <th>
+            <b>ID</b>
+        </th>
+        <th>
+            <b>Type</b>
+        </th>
+        <th>
+            <b>Name</b>
+        </th>
+        <th>
+            <b>Date</b>
+        </th>
+        <th>
+            <b>Units</b>
+        </th>
+        <th>
+            <b>Price</b>
+        </th>
+    </tr>
+    {% for operation in operations %}
+    {% if operation.is_sale %}
+    <tr class="saleTr">
+        <td>
+            <a href="/operations/{{ operation.operation_id }}">{{
+                operation.operation_id }}</a>
+        </td>
+        <td>
+            <b>sale</b>
+        </td>
+        <td>
+            <a href="/products/{{ operation.product_id}}">{{ operation.name
+                }}</a>
+        </td>
+        <td>
+            {{ operation.operation_date }}
+        </td>
+        <td>
+            {{ operation.units }}{{ operation.unit }}
+        </td>
+        <td>
+            {{ operation.price }}
+        </td>
+    </tr>
+    {% else %}
+    <tr class="purchaseTr">
+        <td>
+            <a href="/operations/{{ operation.operation_id }}">{{
+                operation.operation_id }}</a>
+        </td>
+        <td>
+            <b>purchase</b>
+        </td>
+        <td>
+            <a href="/products/{{ operation.product_id}}">{{ operation.name
+                }}</a>
+        </td>
+        <td>
+            {{ operation.operation_date }}
+        </td>
+        <td>
+            {{ operation.units }}{{ operation.unit }}
+        </td>
+        <td>
+            {{ operation.price }}
+        </td>
+    </tr>
+    {% endif %}
+    {% endfor %}
+</table>
+{% endblock %}

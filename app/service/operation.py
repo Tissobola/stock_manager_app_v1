@@ -23,30 +23,6 @@ class OperationService:
             return None, e
         return list, None
 
-    def getAllSales() -> tuple[list[dict], Exception]:
-        response, error = op_rp.getAllSales()
-        if error is not None:
-            return None, error
-        try:
-            list = []
-            for sale in response:
-                list.append(sale.to_dict())
-        except Exception as e:
-            return None, e
-        return list, None
-
-    def getAllPurchases() -> tuple[list[dict], Exception]:
-        response, error = op_rp.getAllPurchases()
-        if error is not None:
-            return None, error
-        try:
-            list = []
-            for purchase in response:
-                list.append(purchase.to_dict())
-        except Exception as e:
-            return None, e
-        return list, None
-
     def createSale(sale: op.Operation) -> tuple[str, Exception]:
         product, _ = prod_sr.getProduct(sale.product_id)
         if product is None:
@@ -97,7 +73,7 @@ class OperationService:
 
     def deleteOperation(id: int) -> tuple[str, Exception]:
         operation, error = getOperation(id)
-        operation = op.Operation(operation)
+        operation = op.Operation(operation, False)
         if operation is None:
             return str(True), None
         if error is not None:
@@ -120,7 +96,7 @@ class OperationService:
 
     def updateOperation(operation: op.Operation) -> tuple[str, Exception]:
         old_operation, error = getOperation(operation.operation_id)
-        old_operation = op.Operation(old_operation)
+        old_operation = op.Operation(old_operation, False)
         if old_operation is None:
             return str(True), None
         if error is not None:
@@ -160,8 +136,6 @@ class OperationService:
 _inst = OperationService
 getOperation = _inst.getOperation
 getAllOperations = _inst.getAllOperations
-getAllSales = _inst.getAllSales
-getAllPurchases = _inst.getAllPurchases
 createSale = _inst.createSale
 createPurchase = _inst.createPurchase
 deleteOperation = _inst.deleteOperation

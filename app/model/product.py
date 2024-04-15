@@ -1,26 +1,13 @@
 class Product:
-    def __init__(self, name, price, stock, unit, product_id = None):
-        self.product_id = product_id
-        self.name = name
-        self.price = price
-        self.stock = stock
-        self.unit = unit
-
     def __init__(self, product_dict: dict):
         self.product_id = product_dict["product_id"]
-        self.name = product_dict["name"]
+        self.name = str(product_dict["name"])
         self.price = float(product_dict["price"])
-        self.stock = product_dict["stock"]
-        self.unit = product_dict["unit"]
-        
-    def to_tuple(self):
-        return (self.product_id, self.name, self.price, self.stock, self.unit)
+        self.stock = int(product_dict["stock"])
+        self.unit = str(product_dict["unit"])
     
     def to_list(self):
-        result = []
-        for item in self.to_tuple():
-            result.append(item)
-        return result
+        return [self.product_id, self.name, self.price, self.stock, self.unit]
     
     def to_dict(self):
         return {

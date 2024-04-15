@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{{ operation.name }}</h1>
+<p>
+    <b>Operation ID: </b>{{ operation.operation_id }}
+</p>
+<p>
+    <b>Product ID: </b><a href="/products/{{ operation.product_id }}">{{
+        operation.product_id }}</a>
+</p>
+<p>
+    <b>Date: </b>{{ operation.operation_date }}
+</p>
+<p>
+    <b>Units: </b>{{ operation.units }}{{ operation.unit }}
+</p>
+<p>
+    <b>Price: </b>{{ operation.price }}
+</p>
+{% if operation.is_sale %}
+<p>
+    <b>Type: </b>Sale
+</p>
+{% else %}
+<p>
+    <b>Type: </b>Purchase
+</p>
+{% endif %}
+{% endblock %}

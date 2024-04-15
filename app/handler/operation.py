@@ -5,7 +5,7 @@ from flask import abort
 
 class OperationHandler:
     def getOperation(id: int) -> dict:
-        result, error = sr.getProduct(id)
+        result, error = sr.getOperation(id)
         if error is not None:
             abort(500, str(error))
         return result
@@ -15,21 +15,9 @@ class OperationHandler:
         if error is not None:
             abort(500, str(error))
         return result
-        
-    def getAllSales() -> list[dict]:
-        result, error = sr.getAllSales()
-        if error is not None:
-            abort(500, str(error))
-        return result
-        
-    def getAllPurchases() -> list[dict]:
-        result, error = sr.getAllPurchases()
-        if error is not None:
-            abort(500, str(error))
-        return result
 
     def createSale(operation: dict) -> str:
-        validate, error = val.createOperation(operation)
+        validate, error = val.createOperation(operation, False)
         if not validate:
             abort(404, str(error))
         try:
@@ -40,7 +28,7 @@ class OperationHandler:
                 aux = operation["price"]
             except:
                 operation["price"] = None
-            operation = op.Operation(operation)
+            operation = op.Operation(operation, False)
         except:
             abort(404, "Invalid Request")
         response, error = sr.createSale(operation)
@@ -79,7 +67,7 @@ class OperationHandler:
             abort(404, str(error))
         try:
             operation["operation_date"] = None
-            operation = op.Operation(operation)
+            operation = op.Operation(operation, False)
         except:
             abort(404, "Invalid Request")
         response, error = sr.updateOperation(operation)
@@ -90,8 +78,6 @@ class OperationHandler:
 _inst = OperationHandler
 getOperation = _inst.getOperation
 getAllOperations = _inst.getAllOperations
-getAllSales = _inst.getAllSales
-getAllPurchases = _inst.getAllPurchases
 createSale = _inst.createSale
 createPurchase = _inst.createPurchase
 deleteOperation = _inst.deleteOperation

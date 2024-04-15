@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{{ product.name }}</h1>
+<p>
+    <b>Product ID: </b>{{ product.product_id }}
+</p>
+<p>
+    <b>Price: </b>{{ product.price }}
+</p>
+<p>
+    <b>Stock: </b>{{ product.stock }}{{ product.unit }}
+</p>
+{% endblock %}
