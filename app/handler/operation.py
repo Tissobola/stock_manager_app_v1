@@ -17,36 +17,34 @@ class OperationHandler:
         return result
 
     def createSale(operation: dict) -> str:
-        validate, error = val.createOperation(operation, False)
+        validate, error = val.createSale(operation)
         if not validate:
             abort(404, str(error))
         try:
             operation["operation_id"] = None
             operation["operation_date"] = None
             operation["is_sale"] = None
-            try:
-                aux = operation["price"]
-            except:
+            if operation["price"] == "":
                 operation["price"] = None
             operation = op.Operation(operation, False)
-        except:
-            abort(404, "Invalid Request")
+        except Exception as e:
+            abort(404, "Invalid Request: "+str(e))
         response, error = sr.createSale(operation)
         if error is not None:
             abort(500, str(error))
         return response
 
     def createPurchase(operation: dict) -> str:
-        validate, error = val.createOperation(operation)
+        validate, error = val.createPurchase(operation)
         if not validate:
             abort(404, str(error))
         try:
             operation["operation_id"] = None
             operation["operation_date"] = None
             operation["is_sale"] = None
-            operation = op.Operation(operation)
-        except:
-            abort(404, "Invalid Request")
+            operation = op.Operation(operation, False)
+        except Exception as e:
+            abort(404, "Invalid Request: "+str(e))
         response, error = sr.createPurchase(operation)
         if error is not None:
             abort(500, str(error))

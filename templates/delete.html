@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% if product %}
+<center>
+    <h1>Are you sure you want to delete: {{ product.name }}</h1>
+    <form name="delete" method="post">
+        <input type="submit" value="Delete" />
+    </form>
+</center>
+{% elif operation %}
+<center>
+    <h1>Are you sure you want to delete: {{ operation.name }}</h1>
+    <form name="delete" method="post">
+        <input type="submit" value="Delete" />
+    </form>
+</center>
+{% elif response %}
+<center>
+    <h1>Sucessful deletion</h1>
+</center>
+{% endif %}
+
+{% endblock %}

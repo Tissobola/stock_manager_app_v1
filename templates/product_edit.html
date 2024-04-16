@@ -1,9 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>Register Product</h2>
+<h1>Edit Product</h1>
+<h2>{{ product.name }}</h2>
+<h2>{{ product.product_id }}</h2>
 <form method="post">
     <label for="productName">Product Name:</label><br>
-    <input type="text" id="name" name="name" required
+    <input type="text" id="name" name="name"
         value="{{ request.form['name'] }}"><br><br>
 
     <label for="price">Price:</label><br>
@@ -11,7 +13,7 @@
         required value="{{ request.form['price'] }}"><br><br>
 
     <label for="stock">Stock:</label><br>
-    <input type="number" id="stock" name="stock" min="0" required
+    <input type="number" id="stock" name="stock" min="0"
         value="{{ request.form['stock'] }}"><br><br>
 
     <label for="unit">Unit:</label><br>

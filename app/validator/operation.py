@@ -9,13 +9,25 @@ class Validator:
         result, _, error = validate(data, rules, return_info=True)
         return (result, read(error))
 
-    def createOperation(operation: op.Operation) -> tuple[bool, Exception]:
+    def createSale(operation: op.Operation) -> tuple[bool, Exception]:
         data = operation
         rules = {"operation_id"     : "",
                  "product_id"       : "required|integer",
                  "operation_date"   : "",
                  "units"            : "required|min:1|integer",
                  "price"            : "",
+                 "is_sale"          : ""
+                }
+        result, _, error = validate(data, rules, return_info=True)
+        return (result, read(error))
+    
+    def createPurchase(operation: op.Operation) -> tuple[bool, Exception]:
+        data = operation
+        rules = {"operation_id"     : "",
+                 "product_id"       : "required|integer",
+                 "operation_date"   : "",
+                 "units"            : "required|min:1|integer",
+                 "price"            : "required|min:0",
                  "is_sale"          : ""
                 }
         result, _, error = validate(data, rules, return_info=True)
@@ -41,6 +53,7 @@ class Validator:
 
 _inst = Validator
 getOperation = _inst.getOperation
-createOperation = _inst.createOperation
+createSale = _inst.createSale
+createPurchase = _inst.createPurchase
 deleteOperation = _inst.deleteOperation
 updateOperation = _inst.updateOperation

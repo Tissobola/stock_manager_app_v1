@@ -10,4 +10,10 @@
 <p>
     <b>Stock: </b>{{ product.stock }}{{ product.unit }}
 </p>
+<form name="delete" action="javascript:window.open('/products/{{product.product_id}}/delete/','_self')">
+    <input type="submit" value="Delete" />
+</form>
+<!-- <button type="input" formmethod="post"
+    formaction="javascript:window.open('/delete/','_self')">Delete</button> -->
+
 {% endblock %}

@@ -23,6 +23,7 @@ class OperationRepository:
                 SELECT operation_id, o.product_id, operation_date, units, o.price, is_sale, name, unit
                 FROM operation o
                 JOIN product p
+                WHERE o.product_id = p.product_id
                 ORDER BY operation_date
             ''').fetchall() #dict list
         except Exception as error:

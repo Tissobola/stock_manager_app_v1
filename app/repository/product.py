@@ -48,6 +48,8 @@ class ProductRepository:
         try:
             db.execute('''DELETE FROM product
                 WHERE product_id = ?''', [id])
+            db.execute('''DELETE FROM operation
+                WHERE product_id = ?''', [id])
         except Exception as error:
             db.rollback()
             return (False, error)

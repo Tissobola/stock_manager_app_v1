@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Sell Product</h2>
+<form method="post">
+    <label for="productId">Product ID:</label><br>
+    <input type="text" id="product_id" name="product_id" required
+        value="{{ request.form['product_id'] }}"><br><br>
+
+    <label for="units">Unit:</label><br>
+    <input type="number" id="units" name="units" min="1" step="1" required
+        value="{{ request.form['units'] }}"><br><br>
+
+    <label for="price">Custom price (leave it empty for preset price):</label><br>
+    <input type="number" id="price" name="price" min="0" step="0.01"
+        value="{{ request.form['price'] }}"><br><br>
+
+    <input type="submit" value="Submit">
+</form>
+
+{% if response %}
+<h1>Sale registered sucessfully</h1>
+{% elif not clean %}
+<h1>Failed!</h1>
+{% endif %}
+{% endblock %}

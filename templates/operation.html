@@ -26,4 +26,7 @@
     <b>Type: </b>Purchase
 </p>
 {% endif %}
+<form name="delete" action="javascript:window.open('/operations/{{operation.operation_id}}/delete/','_self')">
+    <input type="submit" value="Delete" />
+</form>
 {% endblock %}

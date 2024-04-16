@@ -57,7 +57,7 @@ class OperationService:
 
         if purchase.price is None:
             purchase.price = product.price * purchase.units
-        purchase.is_sale = True
+        purchase.is_sale = False
         purchase.operation_date = datetime.now()
         product.stock += purchase.units
         
