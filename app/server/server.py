@@ -27,7 +27,7 @@ def deleteProduct(id):
     return render_template('delete.html', response = prod_handler.deleteProduct(id)), 200    #TODO
 
 @APP.route('/products/<int:id>/edit/', methods=['GET'])
-def editProductPage(id):
+def updateProductPage(id):
     return render_template('product_edit.html', product = prod_handler.getProduct(id)), 200
 
 @APP.route('/products/<int:id>/edit/', methods=['POST'])
@@ -50,14 +50,14 @@ def getOperation(id):
 
 @APP.route('/operations/<int:id>/delete/', methods=['GET'])
 def deleteOperationPage(id):
-    return render_template('delete.html', operation = op_handler.getOperation(id)), 200    #TODO
+    return render_template('delete.html', operation = op_handler.getOperation(id)), 200
 
 @APP.route('/operations/<int:id>/delete/', methods=['POST'])
 def deleteOperation(id):
-    return render_template('delete.html', response = op_handler.deleteOperation(id)), 200    #TODO
+    return render_template('delete.html', response = op_handler.deleteOperation(id)), 200
 
 @APP.route('/operations/<int:id>/edit/', methods=['GET'])
-def editOperationPage(id):
+def updateOperationPage(id):
     return render_template('operation_edit.html', operations = op_handler.getOperation(id)), 200
 
 @APP.route('/operations/<int:id>/edit/', methods=['POST'])
