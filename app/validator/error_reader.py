@@ -5,7 +5,7 @@ class ErrorReader:
         exception = Exception()
         output = ''
         result = []
-        for i, parameter in enumerate(error):
+        for parameter in error:
             output += parameter+": "+str(error[parameter])
             result.append(output)
             output = ''
